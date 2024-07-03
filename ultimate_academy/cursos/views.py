@@ -1,29 +1,38 @@
 from django.shortcuts import render
 import requests
+from .models import Video
+from .api import api_youtube
 
 def index(request):
     return render(request, 'ultimate_academy/index.html')
 
 def cursos(request):
-    # Url de la API para la consulta del video PYTHON de SOYDALTO 
-    url = f'https://www.googleapis.com/youtube/v3/videos?key=AIzaSyCG_Ib__3sibNQuSSK1-yp8bBQIp68qyLc&id=nKPbfIU442g&part=snippet&part=contentDetails'
-    # Realizamos la consulta a la API
-    response = requests.get(url)
+    # Traigo todos los Ids existentes en la BBDD
+    ids = Video.objects.values_list('youtube_id', flat=True)
 
-    if response.status_code == 200:
-        # Obtenemos el contenido de la respuesta
-        data = response.json()
+    videos_info = []
+
+    # Creo un bucle que lea por Ids 
+    for id in ids:
+        data = api_youtube(id)
         video_info = data['items'][0]
 
-        # Filtro la información que necesito 
+        # Almaceno la información en un diccionario 
 
-        titulo_video = video_info['snippet']['title']
-        duracion_video_sin_filtrar = video_info['contentDetails']['duration']
-        fecha_publicacion_video = video_info['snippet']['publishedAt']
-        miniatura_video = video_info['snippet']['thumbnails']['high']['url']
-        duracion_video = filtrar_duracion(duracion_video_sin_filtrar)
+        video_data = {
+            'titulo': video_info['snippet']['title'],
+            'duracion': video_info['contentDetails']['duration'],
+            'fecha_publicacion': video_info['snippet']['publishedAt'],
+            'miniatura': video_info['snippet']['thumbnails']['high']['url'],
+        }
+        # Agrego el diccionario a la lista 'videos_info'
+        videos_info.append(video_data)
+     
 
-        context = {'titulo' : titulo_video, 'duracion': duracion_video, 'fecha_publicacion': fecha_publicacion_video, 'miniatura': miniatura_video}
+    context = {
+        'videos': videos_info,
+        'ids': ids,
+    }
         
 
     return render(request, 'ultimate_academy/cursos.html', context)
