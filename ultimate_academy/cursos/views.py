@@ -18,12 +18,30 @@ def cursos(request):
         # Filtro la información que necesito 
 
         titulo_video = video_info['snippet']['title']
-        titulo_descripcion = video_info['snippet']['description']
-        duracion_video = video_info['contentDetails']['duration']
+        duracion_video_sin_filtrar = video_info['contentDetails']['duration']
         fecha_publicacion_video = video_info['snippet']['publishedAt']
-        vistas_video = video_info['statics']['viewCount']
+        miniatura_video = video_info['snippet']['thumbnails']['high']['url']
+        duracion_video = filtrar_duracion(duracion_video_sin_filtrar)
 
+        context = {'titulo' : titulo_video, 'duracion': duracion_video, 'fecha_publicacion': fecha_publicacion_video, 'miniatura': miniatura_video}
+        
 
+    return render(request, 'ultimate_academy/cursos.html', context)
 
-
-    return render(request, 'ultimate_academy/cursos.html')
+def filtrar_duracion(parametro):
+    '''Funcion que toma como parametro un string dado de la API y modifica lo vista de la duracion del tiempo del video'''
+    duracion = ''
+    numbers = '0123456789'
+    for i in parametro:
+        if i in numbers:
+            duracion += i
+        elif i == 'H':
+            duracion += 'h:'
+        elif i == 'M':
+            duracion += 'm:'
+        elif i == 'S':
+            duracion += 's'
+        else: 
+            continue
+    
+    return duracion
