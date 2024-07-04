@@ -1,9 +1,29 @@
 {% extends 'ultimate_academy/base.html'%}
-{% block content%}
-<h1>Bienvenido a la seccion de cursos</h1>
-{% for video in videos %}
-    <h2>{{ video.titulo }}</h2>
-    <h3>{{ video.fecha_publicacion }} {{ video.duracion }}</h3>
-{% endfor %}
+{% load static %}
 
+{% block content%}
+{% block navbar %}
+<nav class="navbar bg-body-tertiary" data-bs-theme="dark">
+  <div class="container-fluid">
+    <a class="navbar-brand " href="{% url 'index'%}">
+      <img src="{% static 'images/favv.png'%}" alt="Bootstrap" width="30" height="24" class="d-inline-block align-text-top">
+      Ultimate Academy
+    </a>
+  </div>
+</nav>
+{% endblock %}
+<div class="container" style = 'margin-top: 20px;'>
+    <div class="row">
+        {% for video in videos %}
+        <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
+            <div class="card text-bg-dark mb-3" style="max-width: 18rem;">
+                <img src="{{ video.miniatura }}" class="img-fluid rounded-start" alt="Miniatura del video">
+                <div class="card-body">
+                    <h5 class="card-title">{{ video.titulo }}</h5>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
 {% endblock %}
