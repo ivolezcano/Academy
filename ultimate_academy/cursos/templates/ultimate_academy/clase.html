@@ -1,0 +1,14 @@
+{% extends 'ultimate_academy/base.html'%}
+{% block content %}
+<div class = 'container-fluid'>
+    <div class = 'row'>
+        <div class = 'col col-video'> {% comment %} Columna en la que aparece el VIDEO de la clase {% endcomment %}
+            <h1 class = 'title'>{{ clase.titulo }}</h1>
+        </div>
+        <div class = 'col'> {% comment %} Columna en la que el ALUMNO interactua {% endcomment %}
+            <h1>{{ clase.titulo }}</h1>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

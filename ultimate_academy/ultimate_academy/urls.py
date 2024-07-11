@@ -16,10 +16,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from cursos.views import index, cursos
+from cursos.views import index, cursos, clase
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index, name='index'),
     path('cursos/', cursos, name='cursos'),
+    path('cursos/<str:youtube_id>/', clase, name='clase'),
 ]
