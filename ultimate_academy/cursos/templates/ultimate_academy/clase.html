@@ -3,7 +3,9 @@
 <div class = 'container-fluid'>
     <div class = 'row'>
         <div class = 'col-md-12 col-video'> {% comment %} Columna en la que aparece el VIDEO de la clase {% endcomment %}
-            <div class="p-3 half-height d-flex align-items-center justify-content-center"><h1 class = 'title'>{{ clase.titulo }}</h1></div>
+            <div class="ratio ratio-21x9" style="--bs-aspect-ratio: 30%;"> {% comment %} Iframe del video CLASE{% endcomment %}
+                <iframe src="https://www.youtube.com/embed/{{ clase.id }}?si=L1vINQo8ZKKd21sX" title="YouTube video" ></iframe>
+            </div>
         </div>
         <div class = 'col-md-12'> {% comment %} Columna en la que aparece el VIDEO de la clase {% endcomment %}
             <div class="p-3 half-height d-flex align-items-center justify-content-center"><h1>{{ clase.titulo }} ventana 2</h1></div>
