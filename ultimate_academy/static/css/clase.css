@@ -10,3 +10,7 @@
 .col-video{
     background-color: #454444;
 }
+
+.half-height {
+    height: 50vh; /* 50% de la altura de la ventana */
+}
