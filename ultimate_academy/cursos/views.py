@@ -51,7 +51,10 @@ def clase(request, youtube_id):
         'id': video_info['id'],
     }
 
+    video_link = f'https://www.youtube.com/watch?v={youtube_id}'
+
     context = {
         'clase': video_data,
+        'link': video_link,
     }
     return render(request, 'ultimate_academy/clase.html', context)
