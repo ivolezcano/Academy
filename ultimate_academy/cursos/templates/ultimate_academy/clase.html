@@ -2,15 +2,15 @@
 
 {% load static %}
 {% block content %}
-<div class = 'container-fluid vh-100 d-flex'>
-    <div class = 'row align-items-center '>
-        <div class = 'col' > {% comment %} Columna en la que aparece el VIDEO de la clase {% endcomment %}
+<div class = 'container-fluid vh-100'>
+    <div class = 'd-flex row vh-100 align-items-center justify-content-between'>
+        <div class = 'col' align='center'> {% comment %} Columna en la que aparece el VIDEO de la clase {% endcomment %}
         {% comment %} Iframe del video CLASE{% endcomment %}
             <div id = 'player'>
                 <div id = 'claseId' style="display: none;">{{ clase.id }}</div>
             </div>
         </div>
-        <div class = 'col'> {% comment %} Columna en la que aparece el VIDEO de la clase {% endcomment %}
+        <div class = 'col' align='center'> {% comment %} Columna en la que aparece el VIDEO de la clase {% endcomment %}
             <iframe src="http://tinycode.ru/games/geometric-memory/" width="400" height="700" style="border:none;" align='center'></iframe>
         </div>
     </div>
