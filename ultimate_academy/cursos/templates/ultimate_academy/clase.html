@@ -12,6 +12,10 @@
         </div>
         <div class = 'col' align='center'> {% comment %} Columna en la que aparece el VIDEO de la clase {% endcomment %}
             <iframe src="http://tinycode.ru/games/geometric-memory/" width="400" height="700" style="border:none;" align='center'></iframe>
+            {% if dato_post %}
+                <h2>Datos recibidos:</h2>
+                <pre>{{ dato_post }}</pre>
+            {% endif %}
         </div>
     </div>
 </div>
@@ -19,4 +23,5 @@
 {% endblock %}
 {% block scripts %}
 <script src="{% static 'js/script.js' %}"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 {% endblock %}

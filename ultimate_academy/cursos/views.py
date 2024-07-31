@@ -1,5 +1,9 @@
 from django.shortcuts import render
-import requests
+from django.http import JsonResponse
+import json
+
+from django.views.decorators.csrf import csrf_exempt
+
 from .models import Video
 from .api import api_youtube
 
@@ -38,23 +42,36 @@ def cursos(request):
 
     return render(request, 'ultimate_academy/cursos.html', context)
 
-
+@csrf_exempt
 def clase(request, youtube_id):
-    data = api_youtube(youtube_id)
-    video_info = data['items'][0]
+    if request.method == "POST":
+        try:
+            datos = json.loads(request.body)
+            dato = datos.get('dato') 
+            request.session['dato_post'] = dato
+            response = {'status': 'success', 'message': 'Dato recibido correctamente', 'dato': dato}
+            return JsonResponse(response)
+        except json.JSONDecodeError:
+            return JsonResponse({'status': 'error', 'message': 'Datos JSON inválidos'}, status=400)
+    else:
+        data = api_youtube(youtube_id)
+        video_info = data['items'][0]
 
-    video_data = {
-        'titulo': video_info['snippet']['title'],
-        'duracion': video_info['contentDetails']['duration'],
-        'fecha_publicacion': video_info['snippet']['publishedAt'],
-        'miniatura': video_info['snippet']['thumbnails']['high']['url'],
-        'id': video_info['id'],
-    }
+        dato_post = request.session.get('dato_post', '')
 
-    video_link = f'https://www.youtube.com/watch?v={youtube_id}'
+        video_data = {
+            'titulo': video_info['snippet']['title'],
+            'duracion': video_info['contentDetails']['duration'],
+            'fecha_publicacion': video_info['snippet']['publishedAt'],
+            'miniatura': video_info['snippet']['thumbnails']['high']['url'],
+            'id': video_info['id'],
+        }
 
-    context = {
-        'clase': video_data,
-        'link': video_link,
-    }
-    return render(request, 'ultimate_academy/clase.html', context)
+        video_link = f'https://www.youtube.com/watch?v={youtube_id}'
+
+        context = {
+            'clase': video_data,
+            'link': video_link,
+            'dato_post': dato_post, 
+        }
+        return render(request, 'ultimate_academy/clase.html', context)

@@ -1,0 +1,13 @@
+{
+    "builds": [{
+        "src": "ultimate_academy/wsgi.py",
+        "use": "@vercel/python",
+        "config": { "maxLambdsSize": "15mb", "runtime": "python3.9"}
+    }],
+    "routes": [
+        {
+            "src": "/(.*)",
+            "dest": "ultimate_academy/wsgi"
+        }
+    ]
+}
