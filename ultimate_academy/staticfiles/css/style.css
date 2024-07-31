@@ -1,0 +1,34 @@
+/* Estilos para el enlace INGRESAR */
+.btn-ingresar {
+    display: inline-block;
+    padding: 15px 30px;
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    background-color: #007BFF;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.btn-ingresar:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+.btn-ingresar:active {
+    background-color: #00408d;
+    transform: scale(0.95);
+}
+
+.btn-ingresar:focus {
+    outline: none;
+    box-shadow: 0 0 5px #0056b3;
+}
+
+
+.card:hover {     
+    cursor: pointer; 
+    box-shadow:  0 8px 16px 0 rgba(0,0,0,0.2);
+}
